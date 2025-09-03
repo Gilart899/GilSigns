@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GilArt - Calculadora de Preços</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        body { font-family: 'Poppins', sans-serif; }
+        .service-card {
+            transition: all 0.3s ease;
+            transform: translateY(0);
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .selected-item {
+            animation: slideIn 0.3s ease-out;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-purple-50 to-blue-50 min-h-screen">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-purple-600 to-blue-600 text-white py-8 shadow-lg">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl font-bold mb-2">🎨 GilArt</h1>
+            <p class="text-xl opacity-90">Calculadora de Preços - Serviços Criativos</p>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-8">
+        <div class="grid lg:grid-cols-3 gap-8">
+            <!-- Services Grid -->
+            <div class="lg:col-span-2">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Selecione os Serviços de Interesse</h2>
+                <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
+                    <!-- Criação de Sites -->
+                    <div class="service-card bg-white rounded-xl p-6 shadow-md cursor-pointer border-2 border-transparent hover:border-purple-300" onclick="addService('Criação de Sites', '💻')">
+                        <div class="text-4xl mb-3">💻</div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Criação de Sites</h3>
+                        <p class="text-sm text-gray-600">Sites profissionais e responsivos</p>
+                    </div>
+
+                    <!-- Canecas -->
+                    <div class="service-card bg-white rounded-xl p-6 shadow-md cursor-pointer border-2 border-transparent hover:border-purple-300" onclick="addService('Canecas Personalizadas', '☕')">
+                        <div class="text-4xl mb-3">☕</div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Canecas</h3>
+                        <p class="text-sm text-gray-600">Canecas personalizadas</p>
+                    </div>
+
+                    <!-- Camisas -->
+                    <div class="service-card bg-white rounded-xl p-6 shadow-md cursor-pointer border-2 border-transparent hover:border-purple-300" onclick="addService('Camisas Personalizadas', '👕')">
+                        <div class="text-4xl mb-3">👕</div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Camisas</h3>
+                        <p class="text-sm text-gray-600">Camisas e uniformes</p>
+                    </div>
+
+                    <!-- Sublimação -->
+                    <div class="service-card bg-white rounded-xl p-6 shadow-md cursor-pointer border-2 border-transparent hover:border-purple-300" onclick="addService('Itens Sublimação', '🎨')">
+                        <div class="text-4xl mb-3">🎨</div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Sublimação</h3>
+                        <p class="text-sm text-gray-600">Diversos itens sublimados</p>
+                    </div>
+
+                    <!-- Faixas -->
+                    <div class="service-card bg-white rounded-xl p-6 shadow-md cursor-pointer border-2 border-transparent hover:border-purple-300" onclick="addService('Faixas Publicitárias', '🏷️')">
+                        <div class="text-4xl mb-3">🏷️</div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Faixas</h3>
+                        <p class="text-sm text-gray-600">Faixas publicitárias</p>
+                    </div>
+
+                    <!-- Fachadas de Aço -->
+                    <div class="service-card bg-white rounded-xl p-6 shadow-md cursor-pointer border-2 border-transparent hover:border-purple-300" onclick="addService('Fachadas de Aço', '🏢')">
+                        <div class="text-4xl mb-3">🏢</div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Fachadas de Aço</h3>
+                        <p class="text-sm text-gray-600">Letreiros em aço</p>
+                    </div>
+
+                    <!-- Silk-screen -->
+                    <div class="service-card bg-white rounded-xl p-6 shadow-md cursor-pointer border-2 border-transparent hover:border-purple-300" onclick="addService('Silk-screen', '🖨️')">
+                        <div class="text-4xl mb-3">🖨️</div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Silk-screen</h3>
+                        <p class="text-sm text-gray-600">Impressão serigráfica</p>
+                    </div>
+
+                    <!-- Toldos -->
+                    <div class="service-card bg-white rounded-xl p-6 shadow-md cursor-pointer border-2 border-transparent hover:border-purple-300" onclick="addService('Toldos', '⛱️')">
+                        <div class="text-4xl mb-3">⛱️</div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Toldos</h3>
+                        <p class="text-sm text-gray-600">Toldos personalizados</p>
+                    </div>
+
+                    <!-- Folhinhas -->
+                    <div class="service-card bg-white rounded-xl p-6 shadow-md cursor-pointer border-2 border-transparent hover:border-purple-300" onclick="addService('Folhinhas', '📅')">
+                        <div class="text-4xl mb-3">📅</div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Folhinhas</h3>
+                        <p class="text-sm text-gray-600">Folhinhas promocionais</p>
+                    </div>
+
+                    <!-- Calendários -->
+                    <div class="service-card bg-white rounded-xl p-6 shadow-md cursor-pointer border-2 border-transparent hover:border-purple-300" onclick="addService('Calendários', '🗓️')">
+                        <div class="text-4xl mb-3">🗓️</div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Calendários</h3>
+                        <p class="text-sm text-gray-600">Calendários personalizados</p>
+                    </div>
+
+                    <!-- Logomarcas -->
+                    <div class="service-card bg-white rounded-xl p-6 shadow-md cursor-pointer border-2 border-transparent hover:border-purple-300" onclick="addService('Criação de Logomarca', '🎯')">
+                        <div class="text-4xl mb-3">🎯</div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Logomarcas</h3>
+                        <p class="text-sm text-gray-600">Criação de identidade visual</p>
+                    </div>
+
+                    <!-- Adesivos -->
+                    <div class="service-card bg-white rounded-xl p-6 shadow-md cursor-pointer border-2 border-transparent hover:border-purple-300" onclick="addService('Adesivos', '🏷️')">
+                        <div class="text-4xl mb-3">🏷️</div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Adesivos</h3>
+                        <p class="text-sm text-gray-600">Adesivos personalizados</p>
+                    </div>
+
+                    <!-- Convites Digitais -->
+                    <div class="service-card bg-white rounded-xl p-6 shadow-md cursor-pointer border-2 border-transparent hover:border-purple-300" onclick="addService('Convites Interativos Digitais', '💌')">
+                        <div class="text-4xl mb-3">💌</div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Convites Digitais</h3>
+                        <p class="text-sm text-gray-600">Convites interativos</p>
+                    </div>
+
+                    <!-- Posts Redes Sociais -->
+                    <div class="service-card bg-white rounded-xl p-6 shadow-md cursor-pointer border-2 border-transparent hover:border-purple-300" onclick="addService('Posts para Redes Sociais', '📱')">
+                        <div class="text-4xl mb-3">📱</div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Posts Redes Sociais</h3>
+                        <p class="text-sm text-gray-600">Criação de posts</p>
+                    </div>
+
+                    <!-- Placas de Acrílico -->
+                    <div class="service-card bg-white rounded-xl p-6 shadow-md cursor-pointer border-2 border-transparent hover:border-purple-300" onclick="addService('Placas de Acrílico', '🪧')">
+                        <div class="text-4xl mb-3">🪧</div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Placas de Acrílico</h3>
+                        <p class="text-sm text-gray-600">Placas em acrílico</p>
+                    </div>
+
+                    <!-- Social Mídia -->
+                    <div class="service-card bg-white rounded-xl p-6 shadow-md cursor-pointer border-2 border-transparent hover:border-purple-300" onclick="addService('Gestão de Social Mídia', '📊')">
+                        <div class="text-4xl mb-3">📊</div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Social Mídia</h3>
+                        <p class="text-sm text-gray-600">Gestão de redes sociais</p>
+                    </div>
+
+                    <!-- Vídeos -->
+                    <div class="service-card bg-white rounded-xl p-6 shadow-md cursor-pointer border-2 border-transparent hover:border-purple-300" onclick="addService('Criação e Edição de Vídeos', '🎬')">
+                        <div class="text-4xl mb-3">🎬</div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Vídeos</h3>
+                        <p class="text-sm text-gray-600">Criação e edição</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Selected Services Panel -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-xl shadow-lg p-6 sticky top-4">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Serviços Selecionados</h3>
+                    <div id="selectedServices" class="space-y-3 mb-6 min-h-[200px]">
+                        <p class="text-gray-500 text-center py-8">Clique nos serviços acima para adicionar à sua lista</p>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <button onclick="clearAll()" class="w-full bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded-lg transition-colors">
+                            🗑️ Limpar Tudo
+                        </button>
+                        <button onclick="generatePDF()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition-colors">
+                            📄 Gerar PDF
+                        </button>
+                        <button onclick="sendWhatsApp()" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 px-4 rounded-lg transition-colors font-semibold">
+                            📱 Enviar WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedServices = [];
+
+        function addService(serviceName, icon) {
+            // Verifica se o serviço já foi adicionado
+            if (selectedServices.find(s => s.name === serviceName)) {
+                return;
+            }
+
+            const service = {
+                id: Date.now(),
+                name: serviceName,
+                icon: icon
+            };
+
+            selectedServices.push(service);
+            updateSelectedServices();
+        }
+
+        function removeService(id) {
+            selectedServices = selectedServices.filter(s => s.id !== id);
+            updateSelectedServices();
+        }
+
+        function updateSelectedServices() {
+            const container = document.getElementById('selectedServices');
+            
+            if (selectedServices.length === 0) {
+                container.innerHTML = '<p class="text-gray-500 text-center py-8">Clique nos serviços acima para adicionar à sua lista</p>';
+                return;
+            }
+
+            container.innerHTML = selectedServices.map(service => `
+                <div class="selected-item flex items-center justify-between bg-purple-50 p-3 rounded-lg border border-purple-200">
+                    <div class="flex items-center space-x-3">
+                        <span class="text-xl">${service.icon}</span>
+                        <span class="font-medium text-gray-800">${service.name}</span>
+                    </div>
+                    <button onclick="removeService(${service.id})" class="text-red-500 hover:text-red-700 font-bold">
+                        ✕
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function clearAll() {
+            selectedServices = [];
+            updateSelectedServices();
+        }
+
+        function generatePDF() {
+            if (selectedServices.length === 0) {
+                alert('Selecione pelo menos um serviço para gerar o PDF!');
+                return;
+            }
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Cabeçalho
+            doc.setFontSize(20);
+            doc.text('GilArt - Orçamento de Serviços', 20, 30);
+            
+            doc.setFontSize(12);
+            doc.text('Data: ' + new Date().toLocaleDateString('pt-BR'), 20, 45);
+            doc.text('WhatsApp: (79) 98106-5735', 20, 55);
+
+            // Lista de serviços
+            doc.setFontSize(16);
+            doc.text('Serviços Solicitados:', 20, 75);
+
+            let yPosition = 90;
+            selectedServices.forEach((service, index) => {
+                doc.setFontSize(12);
+                doc.text(`${index + 1}. ${service.name}`, 25, yPosition);
+                yPosition += 10;
+            });
+
+            // Rodapé
+            yPosition += 20;
+            doc.setFontSize(10);
+            doc.text('Entre em contato conosco para receber um orçamento personalizado!', 20, yPosition);
+            doc.text('GilArt - Soluções Criativas', 20, yPosition + 10);
+
+            // Download do PDF
+            doc.save('GilArt-Orcamento.pdf');
+        }
+
+        function sendWhatsApp() {
+            if (selectedServices.length === 0) {
+                alert('Selecione pelo menos um serviço para enviar!');
+                return;
+            }
+
+            const phoneNumber = '5579981065735';
+            let message = '🎨 *GilArt - Solicitação de Orçamento*\n\n';
+            message += 'Olá! Tenho interesse nos seguintes serviços:\n\n';
+            
+            selectedServices.forEach((service, index) => {
+                message += `${index + 1}. ${service.icon} ${service.name}\n`;
+            });
+            
+            message += '\nPoderia me enviar um orçamento personalizado?\n\n';
+            message += 'Obrigado! 😊';
+
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+            
+            window.open(whatsappUrl, '_blank');
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'979743e8c6295cb7',t:'MTc1NjkyMzY3MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
